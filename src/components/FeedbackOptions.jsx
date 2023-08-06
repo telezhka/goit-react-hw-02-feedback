@@ -1,6 +1,7 @@
+import css from '../css/FeedbackOptions.module.css';
 export const FeedbackOptions = ({ options, onLeaveFeedback }) => {
   return (
-    <div>
+    <ul className={css.buttonList}>
       {options.map(option => (
         <button
           type="button"
@@ -10,6 +11,6 @@ export const FeedbackOptions = ({ options, onLeaveFeedback }) => {
           {option}
         </button>
       ))}
-    </div>
+    </ul>
   );
 };

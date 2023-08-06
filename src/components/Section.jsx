@@ -1,7 +1,8 @@
+import css from '../css/Section.module.css';
 export const Section = ({ title, children }) => {
   return (
-    <div>
-      <h1>{title}</h1>
+    <div className={css.coverB}>
+      <h1 className={css.title}>{title}</h1>
       {children}
     </div>
   );
