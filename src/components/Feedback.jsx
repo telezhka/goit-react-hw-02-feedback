@@ -13,15 +13,26 @@ export class Counter extends Component {
     positive: 0,
   };
   countTotalFeedback = () => {
-    this.setState(state => ({
-      total: state.good + state.neutral + state.bad,
-    }));
+    return new Promise(resolve => {
+      this.setState(
+        state => ({
+          total: state.good + state.neutral + state.bad,
+        }),
+        resolve
+      );
+    });
   };
+
   countPositiveFeedbackPercentage = () => {
-    const { good, total } = this.state;
-    const percentage = (good / total) * 100;
-    this.setState({
-      positive: percentage.toFixed(0),
+    return new Promise(resolve => {
+      const { good, total } = this.state;
+      const percentage = (good / total) * 100;
+      this.setState(
+        {
+          positive: percentage.toFixed(1),
+        },
+        resolve
+      );
     });
   };
   handleGood = () => {
@@ -30,8 +41,7 @@ export class Counter extends Component {
         good: state.good + props.step,
       }),
       () => {
-        this.countTotalFeedback();
-        this.countPositiveFeedbackPercentage();
+        this.countTotalFeedback().then(this.countPositiveFeedbackPercentage);
       }
     );
   };
@@ -42,8 +52,7 @@ export class Counter extends Component {
         neutral: state.neutral + props.step,
       }),
       () => {
-        this.countTotalFeedback();
-        this.countPositiveFeedbackPercentage();
+        this.countTotalFeedback().then(this.countPositiveFeedbackPercentage);
       }
     );
   };
@@ -53,8 +62,7 @@ export class Counter extends Component {
         bad: state.bad + props.step,
       }),
       () => {
-        this.countTotalFeedback();
-        this.countPositiveFeedbackPercentage();
+        this.countTotalFeedback().then(this.countPositiveFeedbackPercentage);
       }
     );
   };
